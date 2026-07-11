@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shree Associates | AV & Automation Solutions Surat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+    
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f8fafc; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .hero-gradient {
+      background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 50%, #e2e8f0 100%);
+    }
+    
+    .marquee-container {
+      overflow: hidden;
+      white-space: nowrap;
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+    .marquee-content {
+      display: inline-block;
+      animation: marquee 20s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    .service-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.08);
+      border-color: #0891b2;
+    }
+    
+    .project-card {
+      transition: all 0.4s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.12);
+    }
+    .project-card:hover .project-img {
+      transform: scale(1.08);
+    }
+    
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    
+    .filter-btn.active {
+      background-color: #0f172a;
+      color: white;
+    }
+    
+    .form-input:focus {
+      border-color: #0891b2;
+      box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.15);
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-900 antialiased overflow-x-hidden selection:bg-cyan-100 selection:text-cyan-900">
+
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <a href="#home" class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-gradient-to-br bg-black rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-cyan-500/20">
+            <img 
+                src="https://i.postimg.cc/5NhSYwYh/Shree-Associates-logo1.png" 
+                alt="Shree Associates Logo"
+                class="w-15 h-15 object-contain"
+            >
+          </div>
+          <div class="flex flex-col">
+            <span class="font-serif text-xl font-bold tracking-tight text-slate-900 leading-none">SHREE ASSOCIATES</span>
+            <span class="text-[10px] uppercase tracking-[0.2em] text-slate-500 mt-0.5">AV & Automation</span>
+          </div>
+        </a>
+        
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#home" class="text-sm font-medium text-slate-600 hover:text-cyan-700 transition-colors relative group">
+            Home
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-600 transition-all group-hover:w-full"></span>
+          </a>
+          <a href="#services" class="text-sm font-medium text-slate-600 hover:text-cyan-700 transition-colors relative group">
+            Services
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-600 transition-all group-hover:w-full"></span>
+          </a>
+          <a href="#work" class="text-sm font-medium text-slate-600 hover:text-cyan-700 transition-colors relative group">
+            Work
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-600 transition-all group-hover:w-full"></span>
+          </a>
+          <a href="#about" class="text-sm font-medium text-slate-600 hover:text-cyan-700 transition-colors relative group">
+            About
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-600 transition-all group-hover:w-full"></span>
+          </a>
+          <a href="#contact" class="px-6 py-2.5 bg-slate-900 text-white text-sm font-medium rounded-full hover:bg-cyan-700 transition-all hover:shadow-lg hover:shadow-cyan-500/25">
+            Get a Quote
+          </a>
+        </div>
+
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 hover:text-cyan-700">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 absolute w-full">
+      <div class="px-6 py-6 space-y-4">
+        <a href="#home" class="block text-base font-medium text-slate-700">Home</a>
+        <a href="#services" class="block text-base font-medium text-slate-700">Services</a>
+        <a href="#work" class="block text-base font-medium text-slate-700">Work</a>
+        <a href="#about" class="block text-base font-medium text-slate-700">About</a>
+        <a href="#contact" class="inline-block px-6 py-2 bg-slate-900 text-white rounded-full text-sm font-medium">Get a Quote</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="relative min-h-screen flex items-center hero-gradient pt-20 overflow-hidden">
+    <!-- Abstract Background Shapes -->
+    <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-cyan-100/40 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 -z-10"></div>
+    <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4 -z-10"></div>
+    
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 w-full grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+      <div class="space-y-8 z-10 order-1">
+        <div class="inline-flex items-center gap-2 px-4 py-2 mt-4 bg-white/90 backdrop-blur rounded-full border border-slate-200 shadow-sm animate-fade-in-up">
+          <span class="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></span>
+          <span class="text-sm font-semibold text-slate-700 tracking-wide">Surat's Premier AV Integrator</span>
+        </div>
+        
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] text-slate-900">
+          <span class="block overflow-hidden"><span class="inline-block hero-reveal">SHREE</span></span>
+          <span class="block overflow-hidden"><span class="inline-block hero-reveal text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-700">ASSOCIATES</span></span>
+        </h1>
+        
+        <p class="text-lg lg:text-xl text-slate-600 max-w-lg leading-relaxed hero-fade">
+          Complete AV & Automation Solutions — from Home Theaters to Auditoriums, we engineer immersive experiences.
+        </p>
+        
+        <div class="flex flex-wrap gap-4 hero-fade">
+          <a href="#contact" class="px-8 py-4 bg-slate-900 text-white rounded-full font-medium hover:bg-cyan-700 transition-all hover:shadow-xl hover:shadow-cyan-500/20 flex items-center gap-2 group">
+            Get a Quote 
+            <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+          </a>
+          <a href="#work" class="px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-full font-medium hover:border-cyan-600 hover:text-cyan-700 transition-all flex items-center gap-2">
+            View Projects 
+            <i data-lucide="play" class="w-4 h-4"></i>
+          </a>
+        </div>
+        
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 pt-8 border-t border-slate-200/80 hero-fade">
+          <div>
+            <div class="text-3xl lg:text-4xl font-bold text-slate-900"><span class="counter" data-target="150">0</span>+</div>
+            <div class="text-sm text-slate-500 mt-1 font-medium">Happy Clients</div>
+          </div>
+          <div>
+            <div class="text-3xl lg:text-4xl font-bold text-slate-900"><span class="counter" data-target="200">0</span>+</div>
+            <div class="text-sm text-slate-500 mt-1 font-medium">Projects Done</div>
+          </div>
+          <div>
+            <div class="text-3xl lg:text-4xl font-bold text-slate-900"><span class="counter" data-target="8">0</span>+</div>
+            <div class="text-sm text-slate-500 mt-1 font-medium">Years Active</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="relative order-2 lg:order-2 hero-image-reveal">
+        <div class="relative rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/10 aspect-[4/3] lg:aspect-square">
+          <img src="https://i.postimg.cc/2jqS6C1W/De-Opera-Domotica3-jpg.webp" alt="Luxury Home Theater" class="object-cover w-full h-full">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+          <div class="absolute bottom-8 left-8 text-white">
+            <p class="text-lg font-medium">Private Cinema</p>
+            <p class="text-sm opacity-80">Rajhans Feriado, Surat</p>
+          </div>
+        </div>
+        
+        <!-- Floating Badge -->
+        <div class="absolute -bottom-6 -left-6 bg-white p-5 rounded-2xl shadow-xl border border-slate-100 hidden md:block">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-600">
+              <i data-lucide="badge-check" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <p class="text-base font-bold text-slate-900">Dolby Atmos Certified</p>
+              <p class="text-sm text-slate-500">Premium Audio Partner</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Decorative ring -->
+        <div class="absolute -top-4 -right-4 w-24 h-24 border-2 border-cyan-200 rounded-full -z-10"></div>
+      </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-40">
+      <span class="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-medium">Scroll</span>
+      <div class="w-px h-10 bg-gradient-to-b from-cyan-600 to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-24 lg:py-32 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+        <p class="text-cyan-600 font-bold tracking-[0.2em] uppercase text-xs mb-4">What We Do</p>
+        <h2 class="text-4xl lg:text-6xl font-bold text-slate-900 mb-6">Our Services</h2>
+        <p class="text-slate-600 text-lg leading-relaxed">End-to-end AV integration and automation solutions tailored for every space and requirement.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Home Theater -->
+        <div class="service-card bg-white p-8 rounded-2xl border border-slate-200 group cursor-default">
+          <div class="w-14 h-14 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-600 mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-all duration-300">
+            <i data-lucide="film" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Home Theater</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Custom-designed private cinema rooms with Dolby Atmos surround sound and 4K/8K projection.</p>
+        </div>
+
+        <!-- Club House Theater -->
+        <div class="service-card bg-white p-8 rounded-2xl border border-slate-200 group cursor-default">
+          <div class="w-14 h-14 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-600 mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-all duration-300">
+            <i data-lucide="users" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Club House Theater</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Premium AV setups for clubhouses with large-format displays, distributed audio, and lounge acoustics.</p>
+        </div>
+
+        <!-- Discotheque & PA Systems -->
+        <div class="service-card bg-white p-8 rounded-2xl border border-slate-200 group cursor-default">
+          <div class="w-14 h-14 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-600 mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-all duration-300">
+            <i data-lucide="music" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Discotheque & PA Systems</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">High-impact line arrays, subwoofers, and DSP-tuned PA systems for clubs, discos, and live events.</p>
+        </div>
+
+        <!-- Auditorium AV -->
+        <div class="service-card bg-white p-8 rounded-2xl border border-slate-200 group cursor-default">
+          <div class="w-14 h-14 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-600 mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-all duration-300">
+            <i data-lucide="mic" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Auditorium AV</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Full-range auditorium solutions including stage monitors, front-of-house mixing, and wide coverage speakers.</p>
+        </div>
+
+        <!-- Conference Room -->
+        <div class="service-card bg-white p-8 rounded-2xl border border-slate-200 group cursor-default">
+          <div class="w-14 h-14 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-600 mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-all duration-300">
+            <i data-lucide="video" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Conference Room</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Video conferencing, PTZ cameras, wireless presentation systems, and echo-free acoustics.</p>
+        </div>
+
+        <!-- Restaurant & Banquet Hall -->
+        <div class="service-card bg-white p-8 rounded-2xl border border-slate-200 group cursor-default">
+          <div class="w-14 h-14 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-600 mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-all duration-300">
+            <i data-lucide="utensils" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Restaurant & Banquet Hall</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Ambient background music systems, LED screens, and event AV for restaurants and banquets.</p>
+        </div>
+
+        <!-- Home Automation -->
+        <div class="service-card bg-white p-8 rounded-2xl border border-slate-200 group cursor-default">
+          <div class="w-14 h-14 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-600 mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-all duration-300">
+            <i data-lucide="home" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Home Automation</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Smart lighting, motorized curtains, climate control, and unified control systems for intelligent living.</p>
+        </div>
+
+        <!-- Acoustic Solutions -->
+        <div class="service-card bg-white p-8 rounded-2xl border border-slate-200 group cursor-default">
+          <div class="w-14 h-14 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-600 mb-6 group-hover:bg-cyan-600 group-hover:text-white transition-all duration-300">
+            <i data-lucide="volume-2" class="w-7 h-7"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Acoustic Solutions</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Professional acoustic panels, soundproofing, and room treatment for studios, theaters, and offices.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brands Marquee -->
+  <section class="py-16 bg-white border-y border-slate-100 overflow-hidden">
+    <div class="text-center mb-10 reveal">
+      <p class="text-xs font-bold tracking-[0.3em] text-slate-400 uppercase">Authorized Brands We Work With</p>
+    </div>
+    <div class="marquee-container reveal">
+      <div class="marquee-content flex items-center gap-20 px-10">
+        <span class="text-3xl font-serif font-bold text-slate-800">Dolby Atmos</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">DTS:X</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">BenQ</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">Epson</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">JBL</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">Marantz</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">Yamaha</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">TX Audio</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="text-3xl font-serif font-bold text-slate-800">Dolby Atmos</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">DTS:X</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">BenQ</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">Epson</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">JBL</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">Marantz</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">Yamaha</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+        <span class="text-3xl font-serif font-bold text-slate-800">TX Audio</span>
+        <span class="text-cyan-500 text-xl">◆</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work / Projects Section -->
+  <section id="work" class="py-24 lg:py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-8 reveal">
+        <div class="max-w-2xl">
+          <p class="text-cyan-600 font-bold tracking-[0.2em] uppercase text-xs mb-4">Our Work</p>
+          <h2 class="text-4xl lg:text-6xl font-bold text-slate-900 mb-4">Featured Projects</h2>
+          <p class="text-slate-600 text-lg">Installations we've delivered across Surat and Gujarat.</p>
+        </div>
+        
+        <div class="flex flex-wrap gap-2" id="project-filters">
+          <button class="filter-btn active px-5 py-2.5 rounded-full text-sm font-semibold transition-all" data-filter="all">All</button>
+          <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-filter="home-theater">Home Theater</button>
+          <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-filter="auditorium">Auditorium</button>
+          <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-filter="corporate">Corporate</button>
+          <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-filter="club">Club / Disco</button>
+          <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-filter="banquet">Banquet</button>
+          <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-filter="automation">Automation</button>
+        </div>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+        <!-- Projects injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-24 lg:py-32 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div class="relative reveal">
+          <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/5">
+            <img src="https://i.postimg.cc/RFmMNb44/3.png" alt="AV Installation" class="object-cover w-full h-full">
+          </div>
+          <!-- Stats Card -->
+          <div class="absolute -bottom-8 -right-4 lg:-right-8 bg-white p-8 rounded-2xl shadow-xl border border-slate-100 hidden md:block">
+            <div class="grid grid-cols-3 gap-6 text-center divide-x divide-slate-100">
+              <div class="px-2">
+                <div class="text-3xl font-bold text-slate-900">8+</div>
+                <div class="text-xs text-slate-500 mt-1 uppercase tracking-wider">Years</div>
+              </div>
+              <div class="px-2">
+                <div class="text-3xl font-bold text-slate-900">150+</div>
+                <div class="text-xs text-slate-500 mt-1 uppercase tracking-wider">Clients</div>
+              </div>
+              <div class="px-2">
+                <div class="text-3xl font-bold text-slate-900">200+</div>
+                <div class="text-xs text-slate-500 mt-1 uppercase tracking-wider">Installs</div>
+              </div>
+            </div>
+          </div>
+          <div class="absolute -top-4 -left-4 w-32 h-32 bg-cyan-100 rounded-full -z-10 blur-2xl opacity-60"></div>
+        </div>
+        
+        <div class="reveal">
+          <p class="text-cyan-600 font-bold tracking-[0.2em] uppercase text-xs mb-4">Who We Are</p>
+          <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-8">About Us</h2>
+          
+          <div class="space-y-6 text-slate-600 text-lg leading-relaxed">
+            <p>"Shree Associates is Surat's trusted name in Complete AV & Automation Solutions. With 8+ years of hands-on experience, we design, supply, install, and commission audio-visual systems for homes, clubs, corporates, and large institutions."</p>
+            <p>"From a single-room home theater to a 1000-seat auditorium — we handle every project with the same precision, quality products, and on-time delivery that our clients trust."</p>
+          </div>
+          
+          <div class="mt-12 grid sm:grid-cols-2 gap-6">
+            <!-- Team Card 1 -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-cyan-300 transition-all hover:shadow-lg group">
+              <div class="w-12 h-12 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-600 mb-4 group-hover:bg-cyan-600 group-hover:text-white transition-colors">
+                <i data-lucide="user" class="w-5 h-5"></i>
+              </div>
+              <h4 class="font-bold text-slate-900 text-lg">Mohit Bhadresa</h4>
+              <p class="text-cyan-600 text-sm font-semibold mb-3">Co-Founder & AV Specialist</p>
+              <div class="flex items-center gap-2 text-sm text-slate-500">
+                <i data-lucide="phone" class="w-4 h-4"></i>
+                <span>+91 97148 15030</span>
+              </div>
+            </div>
+            
+            <!-- Team Card 2 -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-cyan-300 transition-all hover:shadow-lg group">
+              <div class="w-12 h-12 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-600 mb-4 group-hover:bg-cyan-600 group-hover:text-white transition-colors">
+                <i data-lucide="user" class="w-5 h-5"></i>
+              </div>
+              <h4 class="font-bold text-slate-900 text-lg">Ajit Boghra</h4>
+              <p class="text-cyan-600 text-sm font-semibold mb-3">Co-Founder & Automation Expert</p>
+              <div class="space-y-2 text-sm text-slate-500">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="phone" class="w-4 h-4"></i>
+                  <span>+91 97142 00044</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 p-5 bg-white rounded-xl border border-slate-200 flex items-start gap-4">
+            <div class="w-10 h-10 rounded-lg bg-cyan-50 flex items-center justify-center text-cyan-600 flex-shrink-0">
+              <i data-lucide="map-pin" class="w-5 h-5"></i>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">B-306, Bhatar Trade Center, Bhatar Char Rasta, U.M. Road, Surat-395017</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-24 lg:py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 lg:gap-24">
+        <div class="reveal">
+          <p class="text-cyan-600 font-bold tracking-[0.2em] uppercase text-xs mb-4">Reach Us</p>
+          <h2 class="text-4xl lg:text-6xl font-bold text-slate-900 mb-4">Get In Touch</h2>
+          <p class="text-slate-600 text-lg mb-12">Tell us about your project — we'll get back within 24 hours.</p>
+          
+          <div class="space-y-8">
+            <div class="flex items-start gap-5">
+              <div class="w-14 h-14 rounded-2xl bg-cyan-50 flex items-center justify-center text-cyan-600 flex-shrink-0">
+                <i data-lucide="phone" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-lg mb-1">Phone</h4>
+                <p class="text-slate-600">+91 97148 15030</p>
+                <p class="text-slate-600">+91 97142 00044</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-5">
+              <div class="w-14 h-14 rounded-2xl bg-cyan-50 flex items-center justify-center text-cyan-600 flex-shrink-0">
+                <i data-lucide="mail" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-lg mb-1">Email</h4>
+                <p class="text-slate-600">shreeassociates8118@gmail.com</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-5">
+              <div class="w-14 h-14 rounded-2xl bg-cyan-50 flex items-center justify-center text-cyan-600 flex-shrink-0">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-lg mb-1">Office Address</h4>
+                <p class="text-slate-600 leading-relaxed">B-306, Bhatar Trade Center, Bhatar Char Rasta, U.M. Road, Surat - 395017, Gujarat</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-5">
+              <div class="w-14 h-14 rounded-2xl bg-cyan-50 flex items-center justify-center text-cyan-600 flex-shrink-0">
+                <i data-lucide="clock" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-lg mb-1">Working Hours</h4>
+                <p class="text-slate-600">Monday – Saturday: 9:00 AM – 6:00 PM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-slate-50 p-8 lg:p-10 rounded-3xl border border-slate-100 reveal">
+          <form id="contactForm" class="space-y-6">
+            <!-- Web3Forms Access Key (Please replace this with your actual Web3Forms access key) -->
+            <input type="hidden" name="access_key" value="codebypriyank21@gmail.com">
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
+              <input type="text" name="name" required class="form-input w-full px-4 py-3.5 rounded-xl bg-white border border-slate-200 outline-none transition-all" placeholder="Your name">
+            </div>
+            
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Phone Number</label>
+                <input type="tel" name="phone" required class="form-input w-full px-4 py-3.5 rounded-xl bg-white border border-slate-200 outline-none transition-all" placeholder="+91 98765 43210">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
+                <input type="email" name="email" class="form-input w-full px-4 py-3.5 rounded-xl bg-white border border-slate-200 outline-none transition-all" placeholder="you@example.com">
+              </div>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Service Required</label>
+              <select name="service" required class="form-input w-full px-4 py-3.5 rounded-xl bg-white border border-slate-200 outline-none transition-all appearance-none">
+                <option value="">Select a service</option>
+                <option>Home Theater</option>
+                <option>Club House Theater</option>
+                <option>Discotheque / PA System</option>
+                <option>Auditorium AV</option>
+                <option>Conference Room</option>
+                <option>Restaurant / Banquet Hall</option>
+                <option>Home Automation</option>
+                <option>Acoustic Solutions</option>
+              </select>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Message</label>
+              <textarea name="message" rows="4" class="form-input w-full px-4 py-3.5 rounded-xl bg-white border border-slate-200 outline-none transition-all resize-none" placeholder="Tell us about your project..."></textarea>
+            </div>
+            
+            <button type="submit" class="w-full py-4 bg-slate-900 text-white rounded-xl font-semibold hover:bg-cyan-700 transition-all hover:shadow-lg hover:shadow-cyan-500/20 flex items-center justify-center gap-2">
+              <span>Submit Inquiry</span>
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-white py-16">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-gradient-to-br rounded-xl flex items-center justify-center bg-black font-bold text-lg">
+            <img 
+                src="https://i.postimg.cc/5NhSYwYh/Shree-Associates-logo1.png" 
+                alt="Shree Associates Logo"
+                class="w-15 h-15 object-contain"
+            >
+          </div>
+          <div>
+            <span class="font-serif text-xl font-bold tracking-tight block">SHREE ASSOCIATES</span>
+            <span class="text-xs text-slate-400 tracking-wider">AV & AUTOMATION SOLUTIONS</span>
+          </div>
+        </div>
+        
+        <div class="flex gap-8 text-sm text-slate-400">
+          <a href="#home" class="hover:text-white transition-colors">Home</a>
+          <a href="#services" class="hover:text-white transition-colors">Services</a>
+          <a href="#work" class="hover:text-white transition-colors">Work</a>
+          <a href="#about" class="hover:text-white transition-colors">About</a>
+          <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+        </div>
+      </div>
+      
+      <div class="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+        <p>© 2024 Shree Associates. All rights reserved.</p>
+        <p>Crafted with precision in Surat, Gujarat</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Icons
+    lucide.createIcons();
+    
+    // GSAP Animations
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Hero Reveals
+    gsap.from(".hero-reveal", {
+      y: 100,
+      opacity: 0,
+      duration: 1.2,
+      stagger: 0.15,
+      ease: "power4.out",
+      delay: 0.2
+    });
+    
+    gsap.from(".hero-fade", {
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      stagger: 0.2,
+      ease: "power3.out",
+      delay: 0.8
+    });
+    
+    gsap.from(".hero-image-reveal", {
+      opacity: 0,
+      x: 50,
+      scale: 0.95,
+      duration: 1.4,
+      ease: "power3.out",
+      delay: 0.4
+    });
+    
+    // Scroll Reveals
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach(el => {
+      gsap.to(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        },
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out"
+      });
+    });
+    
+    // Counter Animation
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+      const target = +counter.getAttribute('data-target');
+      gsap.to(counter, {
+        innerHTML: target,
+        duration: 2.5,
+        snap: { innerHTML: 1 },
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: counter,
+          start: "top 90%"
+        }
+      });
+    });
+    
+    // Mobile Menu
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Navbar Shadow on Scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        nav.classList.add('shadow-sm');
+      } else {
+        nav.classList.remove('shadow-sm');
+      }
+    });
+    
+    // Projects Data
+    const projects = [
+      {
+        tag: "home-theater",
+        tagLabel: "Home Theater",
+        name: "Private Cinema – Rajhans Feriado",
+        location: "Olpad, Surat | 9.2-ch Dolby Atmos + 4K Laser Projector",
+        image: "https://i.postimg.cc/fRy24q2T/images.jpg"
+      },
+      {
+        tag: "auditorium",
+        tagLabel: "Auditorium",
+        name: "School Auditorium AV – Maheshwari Public School",
+        location: "Canal Road, Village Ladvi, Surat | 400-seat | JBL Line Array",
+        image: "https://i.postimg.cc/brF6dQdJ/images-(1).jpg"
+      },
+      {
+        tag: "corporate",
+        tagLabel: "Corporate",
+        name: "Boardroom Setup – Rajhans Skylar.",
+        location: "Udhana - Magdalla Rd, Piplod, Surat | Polycom + Epson Display",
+        image: "https://i.postimg.cc/cLTVN8B1/microsoftteams-image-67-scaled.webp"
+      },
+      {
+        tag: "club",
+        tagLabel: "Club / Disco",
+        name: "Club House – Royal Fortune",
+        location: "Zanda Chowk, Chala, Vapi | DTS:X PA System",
+        image: "https://i.postimg.cc/B6wSZV5D/626577a85d6926288cad7024-1650816936217.jpg"
+      },
+      {
+        tag: "banquet",
+        tagLabel: "Banquet Hall",
+        name: "Event AV – Paher Banquets",
+        location: "Ichchhapor, Surat | 2-zone Audio + LED Wall",
+        image: "https://i.postimg.cc/ZnBdJ3dF/Top-Banquet-Halls-in-Andheri.jpg"
+      },
+      {
+        tag: "automation",
+        tagLabel: "Automation",
+        name: "Smart Villa – Veer Villa",
+        location: "L.P. Savani road, Surat | Full Crestron Automation",
+        image: "https://i.postimg.cc/RZBBmH6Y/8d9ce851-c44c-41ff-b7f4-c7faf37e7876.png"
+      }
+    ];
+    
+    const projectsGrid = document.getElementById('projects-grid');
+    
+    function renderProjects(filter = 'all') {
+      projectsGrid.innerHTML = '';
+      const filtered = filter === 'all' ? projects : projects.filter(p => p.tag === filter);
+      
+      filtered.forEach(project => {
+        const card = document.createElement('div');
+        card.className = 'project-card bg-white rounded-2xl overflow-hidden border border-slate-100 group';
+        card.innerHTML = `
+          <div class="aspect-[16/10] overflow-hidden relative">
+            <img src="${project.image}" alt="${project.name}" class="project-img w-full h-full object-cover transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute top-4 left-4">
+              <span class="px-3 py-1.5 bg-white/95 backdrop-blur text-xs font-bold uppercase tracking-wider text-slate-900 rounded-lg shadow-sm">${project.tagLabel}</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-cyan-700 transition-colors">${project.name}</h3>
+            <p class="text-slate-500 text-sm flex items-start gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4 mt-0.5 flex-shrink-0 text-cyan-600"></i>
+              ${project.location}
+            </p>
+          </div>
+        `;
+        projectsGrid.appendChild(card);
+      });
+      lucide.createIcons();
+      
+      gsap.fromTo('.project-card', 
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power2.out" }
+      );
+    }
+    
+    renderProjects();
+    
+    // Filter Logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.classList.remove('active');
+          b.classList.add('bg-slate-100', 'text-slate-600');
+        });
+        btn.classList.remove('bg-slate-100', 'text-slate-600');
+        btn.classList.add('active');
+        renderProjects(btn.getAttribute('data-filter'));
+      });
+    });
+    
+    // ── Contact Form — AJAX submit to Web3Forms ────────────────
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const btn      = this.querySelector('button[type="submit"]');
+      const original = btn.innerHTML;
+
+      // Loading state
+      btn.disabled   = true;
+      btn.innerHTML  = '<span>Sending…</span>';
+      btn.classList.replace('bg-slate-900', 'bg-slate-600');
+
+      try {
+        const formData = new FormData(this);
+        const object   = Object.fromEntries(formData);
+        const json     = JSON.stringify(object);
+
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body   : json,
+        });
+
+        const data = await response.json();
+
+        if (response.status === 200 && data.success) {
+          btn.innerHTML = '<span>✓ Inquiry Submitted!</span>';
+          btn.classList.replace('bg-slate-600', 'bg-green-600');
+          this.reset();
+        } else {
+          btn.innerHTML = `<span>${data.message || 'Error. Please try again.'}</span>`;
+          btn.classList.replace('bg-slate-600', 'bg-red-600');
+        }
+      } catch (err) {
+        btn.innerHTML = '<span>Network error. Try again.</span>';
+        btn.classList.replace('bg-slate-600', 'bg-red-600');
+      }
+
+      // Reset button after 4 seconds
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('bg-green-600', 'bg-red-600');
+        btn.classList.add('bg-slate-900');
+        btn.disabled = false;
+      }, 4000);
+    });
+
+    // Re-initialize icons
+    setTimeout(() => lucide.createIcons(), 500);
+  </script>
+</body>
+</html>
